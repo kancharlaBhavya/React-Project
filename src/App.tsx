@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/login';
+import Dashboard from './pages/dashboard';
+import Projects from './pages/Projects';
+import AboutPage from './pages/AboutPage';
+import keycloak from './Keycloak';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
+import Keycloak from 'keycloak-js';
+
+import Firstpage from './firstpage';
+import PrivateRoute from './helper/PrivateRoute';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  // const isLogin = useAuth();
+
+  return  (
+  
+   
+      <BrowserRouter>
+      <Routes>
+        <Route  path="/" element={<LoginPage/>}/>
+          <Route path="/AboutPage" element={<PrivateRoute><Dashboard onLogout={function (): void {
+            throw new Error('Function not implemented.');
+          } } profilePicUrl={''} children={undefined}/></PrivateRoute>}/>
+        </Routes></BrowserRouter>
+   
+
+    
+    );
 }
 
 export default App;
+
+
